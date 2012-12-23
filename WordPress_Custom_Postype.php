@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Postype for WordPress
 Plugin URI: 
-Description:  Custom post type for some herbs. Creates three new meta boxes to collecting data about herbs.
+Description:  Custom post type for some custom. Creates three new meta boxes to collecting data about custom.
 Version: 1.0
 Author: rene reimann
 Author URI: http://www.awsome-wordpress-plugin.com
@@ -48,15 +48,15 @@ namespace CustomPostType\create_the_posttype;
             self::$plugin_obj->prefix       = "thpt";
 			self::$plugin_obj->base         = plugin_basename(__FILE__);
 			self::$plugin_obj->include_path = plugin_dir_path(__FILE__);
-            self::$plugin_obj->name         = 'wp-herbs-postype';
+            self::$plugin_obj->name         = 'wp-custom-postype';
             
             
 			load_plugin_textdomain( self::$plugin_obj->class_name, false, self::$plugin_obj->name  . '/lang/' );
             
             $this->set_metafile_fields();
 
-            add_action( 'init', array( $this, 'register_herbs_post_type' ) );
-            add_action( 'add_meta_boxes', array( $this, 'create_herbs_metaboxes' ) );
+            add_action( 'init', array( $this, 'register_custom_post_type' ) );
+            add_action( 'add_meta_boxes', array( $this, 'create_custom_metaboxes' ) );
             add_action( 'save_post', array( $this, 'save_meta' ), 1, 2 );
         }
 
@@ -64,7 +64,7 @@ namespace CustomPostType\create_the_posttype;
         // declare the Custom attributes
         private function set_metafile_fields(){
 
-            $herbs_fields = array( 
+            $custom_fields = array( 
                                 'lifespan'          => __( 'Lifespan', self::$plugin_obj->class_name ),
                                 'location'          => __( 'Location', self::$plugin_obj->class_name ),
                                 'soil'              => __( 'Soil', self::$plugin_obj->class_name ),
@@ -82,13 +82,13 @@ namespace CustomPostType\create_the_posttype;
                              );
 
 
-           foreach( $herbs_fields as $herbs_attrname => $herbs_value){
-               self::$metafile_fields->$herbs_attrname = $herbs_value;
+           foreach( $custom_fields as $custom_attrname => $custom_value){
+               self::$metafile_fields->$custom_attrname = $custom_value;
            } 
 
         }
 
-        public function register_herbs_post_type() {
+        public function register_custom_post_type() {
 
             $labels = array (
                 'name'               => __('Custom', self::$plugin_obj->class_name ),
@@ -122,12 +122,12 @@ namespace CustomPostType\create_the_posttype;
                 'taxonomies'          => array('category','post_tag')
             );
 
-            register_post_type('herbs', $args);
+            register_post_type('custom', $args);
         }
 
 
-        public function create_herbs_metaboxes() {
-            add_meta_box( 'profile_box', __('Characteristics', self::$plugin_obj->class_name ), array( $this, 'the_metaboxes' ), 'herbs', 'normal', 'default');
+        public function create_custom_metaboxes() {
+            add_meta_box( 'profile_box', __('Characteristics', self::$plugin_obj->class_name ), array( $this, 'the_metaboxes' ), 'custom', 'normal', 'default');
         }
 
 
@@ -169,8 +169,8 @@ namespace CustomPostType\create_the_posttype;
 
 
 // Init Plugin when is it Loaded
-add_action( 'plugins_loaded', 'init_wp_herbs_postype');
+add_action( 'plugins_loaded', 'init_wp_custom_postype');
 
-function init_wp_herbs_postype(){
-    $wp->the_herbs_posttype = new The_Custom_Posttype();
+function init_wp_custom_postype(){
+    $wp->the_custom_posttype = new The_Custom_Posttype();
 }
