@@ -1,34 +1,28 @@
 <?php
-/*
-Plugin Name: Custom Postype for WordPress
-Plugin URI: 
-Description:  Custom post type for some custom. Creates three new meta boxes to collecting data about custom.
-Version: 1.0
-Author: rene reimann
-Author URI: http://www.awsome-wordpress-plugin.com
-Author Email: info@awsome-wordpress-plugin.com
-Author google profile ID: 110560099924916827007
-Author twitter: https://twitter.com/awsome-wordpress-plugin
-Company Name:
-Company URI:
-License:
-
-  Copyright 2012 TODO (email@domain.com)
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License, version 2, as 
-  published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-  
-*/
+/**
+* Plugin Name: Custom Postype for WordPress
+* Plugin URI: 
+* Description:  Custom post type for some custom. Creates three new meta boxes to collecting data about custom.
+* Version: 1.0
+* Author: Sven Balzer
+* Author URI: http://pixel-in-motion.de
+* Author Email: sven@pixel-in-motion.de
+* License: WTFPL
+*
+*    This program is free software; you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License, version 2, as 
+*    published by the Free Software Foundation.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*  
+*    You should have received a copy of the GNU General Public License
+*    along with this program; if not, write to the Free Software
+*    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+* 
+**/   
 
 namespace CustomPostType\create_the_posttype;
 
@@ -45,7 +39,7 @@ namespace CustomPostType\create_the_posttype;
         public function __construct(){
 
             self::$plugin_obj->class_name 	= __CLASS__;
-            self::$plugin_obj->prefix       = "thpt";
+            self::$plugin_obj->prefix       = "tcpt"; // @TODO: change prefix
 			self::$plugin_obj->base         = plugin_basename(__FILE__);
 			self::$plugin_obj->include_path = plugin_dir_path(__FILE__);
             self::$plugin_obj->name         = 'wp-custom-postype';
@@ -64,22 +58,12 @@ namespace CustomPostType\create_the_posttype;
         // declare the Custom attributes
         private function set_metafile_fields(){
 
+			// add more fields for your requierements
             $custom_fields = array( 
-                                'lifespan'          => __( 'Lifespan', self::$plugin_obj->class_name ),
-                                'location'          => __( 'Location', self::$plugin_obj->class_name ),
-                                'soil'              => __( 'Soil', self::$plugin_obj->class_name ),
-                                'plant_distance'    => __( 'Plant distance', self::$plugin_obj->class_name ),
-                                'height'            => __( 'Height', self::$plugin_obj->class_name ),
-                                'sowing'            => __( 'Sowing', self::$plugin_obj->class_name ),
-                                'planting_period'   => __( 'Planting period', self::$plugin_obj->class_name ),
-                                'anthesis'          => __( 'Anthesis', self::$plugin_obj->class_name ),
-                                'harvest'           => __( 'Harvest', self::$plugin_obj->class_name ),
-                                'blossom'           => __( 'Blossom' , self::$plugin_obj->class_name ),
-                                'flower_colour'     => __( 'Flower colour', self::$plugin_obj->class_name ),
-                                'maintenance'       => __( 'Maintenance', self::$plugin_obj->class_name ),
-                                'water_consumption' => __( 'Water consumption', self::$plugin_obj->class_name ),
-                                'toxicity'          => __( 'Toxicity', self::$plugin_obj->class_name ),
-                             );
+				'field_name1'	=> __( 'field name 1', self::$plugin_obj->class_name ),
+				'field_name2'	=> __( 'field name 2', self::$plugin_obj->class_name ),
+				'field_name3'	=> __( 'field name 3', self::$plugin_obj->class_name ),
+			 );
 
 
            foreach( $custom_fields as $custom_attrname => $custom_value){
@@ -89,21 +73,21 @@ namespace CustomPostType\create_the_posttype;
         }
 
         public function register_custom_post_type() {
-
+			// rename labels for your choice
             $labels = array (
                 'name'               => __('Custom', self::$plugin_obj->class_name ),
-                'singular_name'      => __('Herb', self::$plugin_obj->class_name ),
-                'add_new'            => __('new Herb', self::$plugin_obj->class_name ),
-                'add_new_item'       => __('new Herb', self::$plugin_obj->class_name ),
-                'new_item'           => __('new Herb', self::$plugin_obj->class_name ),
-                'edit'               => __('edit Herb', self::$plugin_obj->class_name ),
-                'edit_item'          => __('edit Herb', self::$plugin_obj->class_name ),
-                'view'               => __('view Herb', self::$plugin_obj->class_name ),
-                'view_item'          => __('view Herb', self::$plugin_obj->class_name ),
-                'search_items'       => __('search Herb', self::$plugin_obj->class_name ),
-                'not_found'          => __('no Herb found', self::$plugin_obj->class_name ),
-                'not_found_in_trash' => __('no Herb in trash', self::$plugin_obj->class_name ),
-                'parent'             => __('parent Herb', self::$plugin_obj->class_name )
+                'singular_name'      => __('item', self::$plugin_obj->class_name ),
+                'add_new'            => __('new item', self::$plugin_obj->class_name ),
+                'add_new_item'       => __('new item', self::$plugin_obj->class_name ),
+                'new_item'           => __('new item', self::$plugin_obj->class_name ),
+                'edit'               => __('edit item', self::$plugin_obj->class_name ),
+                'edit_item'          => __('edit item', self::$plugin_obj->class_name ),
+                'view'               => __('view item', self::$plugin_obj->class_name ),
+                'view_item'          => __('view item', self::$plugin_obj->class_name ),
+                'search_items'       => __('search item', self::$plugin_obj->class_name ),
+                'not_found'          => __('no item found', self::$plugin_obj->class_name ),
+                'not_found_in_trash' => __('no item in trash', self::$plugin_obj->class_name ),
+                'parent'             => __('parent item', self::$plugin_obj->class_name )
             );
 
             $args = array(
