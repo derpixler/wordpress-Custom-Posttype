@@ -39,7 +39,7 @@ namespace CustomPostType\create_the_posttype;
         public function __construct(){
 
             self::$plugin_obj->class_name 	= __CLASS__;
-            self::$plugin_obj->prefix       = "tcpt"; // @TODO: change prefix
+            self::$plugin_obj->prefix       = "wp_cpt"; // @TODO: change prefix
 			self::$plugin_obj->base         = plugin_basename(__FILE__);
 			self::$plugin_obj->include_path = plugin_dir_path(__FILE__);
             self::$plugin_obj->name         = 'wp-custom-postype';
